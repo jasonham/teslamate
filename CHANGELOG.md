@@ -10,6 +10,7 @@
 - feat(webview): Make icons inherit text color for better contrast in dark mode (#5193 - @olsoybakk)
 - feat(webview): Add dark mode support for background and buttons in the map (#5240 - @olsoybakk and @swiffer)
 - fix(webview): Prevent rounding of map tiles via Bulma CSS (#5265 - @swiffer)
+- perf: ensure BRIN indexes don't degrade over time (#5276 - @swiffer)
 
 #### Build, CI, internal
 
@@ -40,6 +41,7 @@
 - build(deps-dev): bump esbuild-sass-plugin from 3.6.0 to 3.7.0 in /assets (#5261 - @swiffer)
 - build(deps-dev): bump sass from 1.97.3 to 1.99.0 in /assets (#5261 - @swiffer)
 - build(deps): update packages in /website and remove obsolete overrides (#5264 - @swiffer)
+- build(deps): update flake.lock (#5275)
 
 #### Dashboards
 
@@ -47,6 +49,8 @@
 - fix: ensure Charges / Drives dashboards load correctly if no Geofence exists (#5199 - @swiffer)
 - fix: division by zero in SQL query for cost_mileage in Trips dashboard (#5198 - @DrMichael)
 - fix: handle incomplete data correctly in Charging Stats / Statistics / Trips dashboards (#5229 - @swiffer)
+- feat: enable timepicker in efficiency dashboard (#5257 - @swiffer)
+- fix: ensure low precision mode is used for consumption gross for larger intervals (#5257 - @swiffer)
 
 #### Translations
 
