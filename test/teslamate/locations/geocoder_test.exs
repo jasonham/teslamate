@@ -5,10 +5,12 @@ defmodule TeslaMate.Locations.GeocoderTest do
 
   import Mock
 
+  @nominatim_host System.get_env("NOMINATIM_HOST", "https://nominatim.openstreetmap.org")
+
   defp geocoder_mock(lat, lon, body) do
     {Tesla.Adapter.Finch, [],
      call: fn %Tesla.Env{} = env, _opts ->
-       assert env.url == "https://nominatim.openstreetmap.org/reverse"
+       assert env.url == "#{@nominatim_host}/reverse"
 
        assert env.query == [
                 {:format, :jsonv2},
@@ -129,7 +131,7 @@ defmodule TeslaMate.Locations.GeocoderTest do
   test "returns a dummy address if the location cannot be geocoded" do
     with_mock Tesla.Adapter.Finch,
       call: fn %Tesla.Env{} = env, _opts ->
-        assert env.url == "https://nominatim.openstreetmap.org/reverse"
+        assert env.url == "#{@nominatim_host}/reverse"
 
         assert env.query == [
                  format: :jsonv2,
@@ -160,7 +162,7 @@ defmodule TeslaMate.Locations.GeocoderTest do
     with_mock Tesla.Adapter.Finch,
       call: fn
         %Tesla.Env{} = env, _opts ->
-          assert env.url == "https://nominatim.openstreetmap.org/reverse"
+          assert env.url == "#{@nominatim_host}/reverse"
 
           assert env.query == [
                    format: :jsonv2,

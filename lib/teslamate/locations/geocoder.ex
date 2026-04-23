@@ -2,10 +2,11 @@ defmodule TeslaMate.Locations.Geocoder do
   use Tesla, only: [:get]
 
   @version Mix.Project.config()[:version]
+  @nominatim_host System.get_env("NOMINATIM_HOST", "https://nominatim.openstreetmap.org")
 
   adapter Tesla.Adapter.Finch, name: TeslaMate.HTTP, receive_timeout: 30_000
 
-  plug Tesla.Middleware.BaseUrl, "https://nominatim.openstreetmap.org"
+  plug Tesla.Middleware.BaseUrl, @nominatim_host
   plug Tesla.Middleware.Headers, [{"user-agent", "TeslaMate/#{@version}"}]
   plug Tesla.Middleware.JSON
   plug Tesla.Middleware.Logger, debug: true, log_level: &log_level/1
