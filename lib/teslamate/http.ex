@@ -2,6 +2,8 @@ defmodule TeslaMate.HTTP do
   require Logger
 
   def pools do
+    nominatim_host = System.get_env("NOMINATIM_HOST", "https://nominatim.openstreetmap.org")
+
     nominatim_proxy =
       case build_proxy_opts_from_env("NOMINATIM_PROXY") do
         {:ok, opts} -> opts
@@ -13,7 +15,7 @@ defmodule TeslaMate.HTTP do
       System.get_env("TESLA_API_HOST", "https://owner-api.teslamotors.com") => [
         size: System.get_env("TESLA_API_POOL_SIZE", "10") |> String.to_integer()
       ],
-      "http://nominatim:8080" => [size: 3] ++ nominatim_proxy,
+      nominatim_host => [size: 3] ++ nominatim_proxy,
       "https://api.github.com" => [size: 1],
       :default => [size: System.get_env("HTTP_POOL_SIZE", "5") |> String.to_integer()]
     }
